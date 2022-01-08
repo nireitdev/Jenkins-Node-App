@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Microservice Node</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="py-5 text-center">
+        <h2>Microservice Node</h2>
+      </div>
+
+      <div class="row">
+      <div class="col-md-6">
+        <h4 class="mb-3">Add two numbers</h4>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="number1">Number 1</label>
+            <input type="number" class="form-control" id="number1" placeholder="" value="">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="number2">Number 2</label>
+            <input type="number" class="form-control" id="number2" placeholder="" value="">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="resultsum">Result</label>
+            <input type="text" class="form-control" id="resultsum" placeholder="Result" disabled>
+          </div>
+
+        </div>
+        <hr class="mb-4">
+        <div class="btn btn-primary btn-lg btn-block" id="btnsum">Sum</div>
+      </div>
+      <div class="col-md-6">
+        <h4 class="mb-3">Find word on Text</h4>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="textval">Text</label>
+            <textarea class="form-control" id="textval" placeholder="" value=""></textarea>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="wordfind">Word</label>
+            <input type="text" class="form-control" id="wordfind" placeholder="" value="">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="resultfind">Result</label>
+            <input type="text" class="form-control" id="resultfind" placeholder="Result" disabled>
+          </div>
+
+        </div>
+        <hr class="mb-4">
+        <div class="btn btn-primary btn-lg btn-block" id="btnfind">Find</div>
+      </div>
+    </div>
+    </div>
+  <script>
+    $('#btnsum').click(function() {
+      var number1 = $('#number1').val();
+      var number2 = $('#number2').val();
+
+      var url = "suma" + "/" + number1 + "/" + number2;
+
+      $('#resultsum').val("Loading...");
+      $.get(url, function( data ) {
+        $('#resultsum').val(data.result);
+      });
+    });
+
+    $('#btnfind').click(function() {
+      var text = $('#textval').val();
+      var wordfind = $('#wordfind').val();
+
+      var data = { "text": text, "find": wordfind }
+
+      var url = "count-words";
+
+      $('#resultfind').val("Loading...");
+      $.post(url, data, function( data ) {
+        $('#resultfind').val(data.result);
+      });
+    });
+  </script>
+  </body>
+</html>
